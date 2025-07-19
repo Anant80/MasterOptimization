@@ -2,48 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Report a Bug - MasterOptimizer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report an Issue - MasterOptimizer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f8f9fa;
-      text-align: center;
-      padding: 60px;
-    }
-
-    .container {
-      background: white;
       padding: 30px;
-      max-width: 600px;
-      margin: 0 auto;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      background-color: #f4f4f4;
+      text-align: center;
     }
-
-    a.button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 25px;
-      background-color: #28a745;
-      color: white;
-      text-decoration: none;
+    textarea {
+      width: 80%;
+      height: 200px;
+      padding: 10px;
       font-size: 16px;
-      border-radius: 6px;
+      margin-bottom: 20px;
     }
-
-    a.button:hover {
-      background-color: #218838;
+    button {
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Report a Bug or Suggest a Feature</h1>
-    <p>If you're experiencing an issue with <strong>MasterOptimizer</strong>, or have an idea to make it better, let us know!</p>
-    <a class="button" href="https://github.com/Anant-Agarwal/MasterOptimizer/issues/new?title=Bug:+&body=**Describe+the+bug:**+%0A%0A**Steps+to+Reproduce:**+%0A1.+...%0A2.+...%0A%0A**Expected+Behavior:**+%0A%0A**Environment:**+%0A-+Minecraft+Version:+1.18-1.21%0A-+Plugin+Version:+1.0.0" target="_blank">
-      Open Issue Form on GitHub
-    </a>
-  </div>
+
+  <h1>🛠 Report a Bug or Problem</h1>
+  <p>Tell us what issue you're facing with <strong>MasterOptimizer</strong>. This will open a GitHub issue with your message pre-filled.</p>
+
+  <textarea id="issueText" placeholder="Describe the problem..."></textarea><br>
+  <button onclick="submitIssue()">Submit to GitHub</button>
+
+  <script>
+    function submitIssue() {
+      const message = document.getElementById("issueText").value;
+      if (!message.trim()) {
+        alert("Please describe the issue before submitting.");
+        return;
+      }
+      const title = encodeURIComponent("Bug Report: " + message.split('\n')[0].slice(0, 50));
+      const body = encodeURIComponent(message + "\n\n**Environment**:\n- Minecraft version: \n- Server type: \n- Plugin version: ");
+      const url = `https://github.com/Anant80/MasterOptimization/issues/new?title=${title}&body=${body}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
 </body>
 </html>
