@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Review MasterOptimizer</title>
+  <title>⭐ Review MasterOptimization</title>
   <style>
     body {
       background-color: #0f0f0f;
@@ -90,13 +90,13 @@
 </head>
 <body>
 
-  <h1>⭐ Review MasterOptimizer</h1>
-  <p>Share your experience using <strong>MasterOptimizer</strong>. Your feedback helps us improve!</p>
+  <h1>⭐ Submit a Review</h1>
+  <p>Share your feedback about <strong>MasterOptimization</strong>. Your review will appear publicly in the <code>reviews</code> section on GitHub.</p>
 
   <div class="input-group">
     <input id="reviewerName" type="text" placeholder="Your name (required)">
     <input id="rating" type="number" min="1" max="5" placeholder="Rating (1–5)">
-    <textarea id="reviewText" placeholder="What did you like or what can be improved?"></textarea>
+    <textarea id="reviewText" rows="5" placeholder="Write your review here..."></textarea>
   </div>
 
   <button onclick="submitReview()">Submit Review</button>
@@ -114,13 +114,13 @@
 
       const title = encodeURIComponent(`⭐ Plugin Review: ${rating}/5 by ${name}`);
       const body = encodeURIComponent(
-        `**Reviewer**: ${name}\n` +
-        `**Rating**: ${rating}/5\n\n` +
+        `**Reviewer:** ${name}\n` +
+        `**Rating:** ${rating}/5\n\n` +
         `${text}\n\n` +
-        `*Submitted via review.html*`
+        `*Submitted via review.html form*`
       );
 
-      const url = `https://github.com/Anant80/MasterOptimization/issues/new?labels=reviews&title=${title}&body=${body}`;
+      const url = `https://github.com/anant80/MasterOptimization/issues/new?labels=reviews&title=${title}&body=${body}`;
       window.open(url, "_blank");
     }
   </script>
