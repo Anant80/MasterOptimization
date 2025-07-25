@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MasterOptimizer Review</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      background: #f4f4f4;
       padding: 40px;
     }
     .container {
@@ -15,84 +14,92 @@
       margin: auto;
       background: white;
       padding: 30px;
-      border-radius: 12px;
+      border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h2 {
-      margin-bottom: 10px;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
     }
     select, textarea, button {
       width: 100%;
       padding: 10px;
-      margin-top: 15px;
+      margin-top: 10px;
       font-size: 16px;
     }
-    textarea {
-      resize: vertical;
-      height: 120px;
-    }
     button {
-      background-color: #28a745;
+      background-color: #2e7d32;
       color: white;
       border: none;
-      border-radius: 6px;
       cursor: pointer;
+      border-radius: 6px;
     }
     button:hover {
-      background-color: #218838;
+      background-color: #1b5e20;
     }
-    label {
+    .message {
+      margin-top: 15px;
+      color: green;
       font-weight: bold;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>⭐ Rate MasterOptimizer</h2>
-    <label for="rating">Rating (1–5)</label>
-    <select id="rating">
-      <option value="5">5 - Excellent</option>
-      <option value="4">4 - Great</option>
-      <option value="3">3 - Okay</option>
-      <option value="2">2 - Needs Improvement</option>
-      <option value="1">1 - Poor</option>
+    <h2>⭐ Leave a Review for MasterOptimizer</h2>
+    <label for="stars">Rating (1–5)</label>
+    <select id="stars">
+      <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+      <option value="4">⭐⭐⭐⭐ (4/5)</option>
+      <option value="3">⭐⭐⭐ (3/5)</option>
+      <option value="2">⭐⭐ (2/5)</option>
+      <option value="1">⭐ (1/5)</option>
     </select>
 
     <label for="description" id="descLabel">What did you like?</label>
-    <textarea id="description" placeholder="Share your thoughts..."></textarea>
+    <textarea id="description" placeholder="Enter your review here..." rows="5"></textarea>
 
     <button onclick="submitReview()">Submit Review</button>
+    <div id="message" class="message"></div>
   </div>
 
   <script>
-    const rating = document.getElementById("rating");
-    const description = document.getElementById("description");
-    const label = document.getElementById("descLabel");
-
-    rating.addEventListener("change", () => {
-      if (parseInt(rating.value) >= 4) {
-        label.innerText = "What did you like?";
-      } else {
-        label.innerText = "What was the problem?";
-      }
+    const descLabel = document.getElementById("descLabel");
+    const starsSelect = document.getElementById("stars");
+    starsSelect.addEventListener("change", () => {
+      const val = parseInt(starsSelect.value);
+      descLabel.innerText = val >= 4 ? "What did you like?" : "What was the problem?";
     });
 
     function submitReview() {
-      const selectedRating = rating.value;
-      const reviewText = description.value.trim();
-
-      if (!reviewText) {
-        alert("Please enter your review.");
+      const stars = document.getElementById("stars").value;
+      const desc = document.getElementById("description").value.trim();
+      if (!desc) {
+        alert("Please enter a review description.");
         return;
       }
 
-      const title = encodeURIComponent(`⭐ Plugin Review: ${selectedRating}/5`);
-      const body = encodeURIComponent(`Rating: ${selectedRating}/5\n\n${reviewText}`);
-      const labels = encodeURIComponent("reviews");
+      const reviewText =
+`Title: ⭐ Plugin Review: ${stars}/5
 
-      const githubURL = `https://github.com/anant80/MasterOptimizer/issues/new?labels=${labels}&title=${title}&body=${body}`;
+Review: ${stars}/5
+Description:
+${desc}`;
 
-      window.open(githubURL, "_blank");
+      navigator.clipboard.writeText(reviewText).then(() => {
+        document.getElementById("message").innerText = "✅ Review copied! Redirecting to GitHub...";
+        setTimeout(() => {
+          window.location.href = "https://github.com/anant80/MasterOptimizer/issues?q=state%3Aopen+label%3Areviews";
+        }, 1500);
+      }).catch(err => {
+        alert("Failed to copy review to clipboard.");
+        console.error(err);
+      });
     }
   </script>
 </body>
