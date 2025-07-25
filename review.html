@@ -3,81 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Plugin Review</title>
+  <title>⭐ MasterOptimizer Plugin Review</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 40px;
+      padding: 2rem;
       background-color: #f4f4f4;
+      color: #333;
     }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    select, textarea, button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      font-size: 1rem;
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
     label {
       font-weight: bold;
       display: block;
-      margin-top: 20px;
+      margin-top: 1rem;
+    }
+    textarea, select, button {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 1.5rem;
+    }
+    button:hover {
+      background-color: #218838;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>⭐ Rate MasterOptimizer Plugin</h2>
 
-    <label for="rating">Rating (1 to 5)</label>
-    <select id="rating" required>
-      <option value="" disabled selected>Select rating</option>
-      <option value="1">1 - Poor</option>
-      <option value="2">2 - Needs improvement</option>
-      <option value="3">3 - Average</option>
-      <option value="4">4 - Good</option>
-      <option value="5">5 - Excellent</option>
-    </select>
+  <h1>⭐ Review MasterOptimizer</h1>
 
-    <label for="description" id="descLabel">Why?</label>
-    <textarea id="description" rows="6" placeholder="Tell us your thoughts..."></textarea>
+  <label for="rating">Rating (1 to 5):</label>
+  <select id="rating">
+    <option value="">Select a rating</option>
+    <option value="5">5 - Excellent</option>
+    <option value="4">4 - Great</option>
+    <option value="3">3 - Okay</option>
+    <option value="2">2 - Needs Work</option>
+    <option value="1">1 - Bad</option>
+  </select>
 
-    <button onclick="submitReview()">Submit Review</button>
-  </div>
+  <label for="description" id="descriptionLabel">What did you like or what’s the problem?</label>
+  <textarea id="description" rows="6" placeholder="Write your review..."></textarea>
+
+  <button onclick="submitReview()">Submit Review on GitHub</button>
 
   <script>
-    const ratingInput = document.getElementById("rating");
-    const label = document.getElementById("descLabel");
+    const ratingSelect = document.getElementById('rating');
+    const descriptionLabel = document.getElementById('descriptionLabel');
 
-    ratingInput.addEventListener("change", function () {
-      if (parseInt(this.value) < 4) {
-        label.innerText = "What’s the problem?";
+    ratingSelect.addEventListener('change', () => {
+      const rating = parseInt(ratingSelect.value);
+      if (rating >= 4) {
+        descriptionLabel.textContent = "What did you like?";
       } else {
-        label.innerText = "What did you like?";
+        descriptionLabel.textContent = "What’s the problem?";
       }
     });
 
     function submitReview() {
       const rating = document.getElementById("rating").value;
       const desc = document.getElementById("description").value.trim();
-
       if (!rating || !desc) {
-        alert("Please select a rating and write a description.");
+        alert("Please provide both a rating and a description.");
         return;
       }
 
-      const title = encodeURIComponent(`⭐ Plugin Review: ${rating}/5`);
-      const body = encodeURIComponent(desc);
+      const title = `Review: ${rating}/5`;
+      const body = `Rating: ${rating}/5\n\n${desc}`;
+      const baseURL = "https://github.com/anant80/MasterOptimizer/issues/new";
 
-      // Redirect to new issue page on GitHub with prefilled content
-      window.location.href = `https://github.com/anant80/MasterOptimizer/issues/new?title=${title}&body=${body}`;
+      const fullURL = `${baseURL}?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}&labels=reviews`;
+
+      window.open(fullURL, '_blank');
     }
   </script>
+
 </body>
 </html>
