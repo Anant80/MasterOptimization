@@ -94,7 +94,7 @@ ${desc}`;
       navigator.clipboard.writeText(reviewText).then(() => {
         document.getElementById("message").innerText = "✅ Review copied! Redirecting to GitHub...";
         setTimeout(() => {
-          window.location.href = "https://github.com/anant80/MasterOptimizer/issues?q=state%3Aopen+label%3Areviews";
+          window.location.href = "https://github.com/anant80/MasterOptimization/issues?q=state%3Aopen+label%3Areviews";
         }, 1500);
       }).catch(err => {
         alert("Failed to copy review to clipboard.");
