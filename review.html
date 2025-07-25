@@ -1,108 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Review MasterOptimizer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plugin Review</title>
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      background-color: #f9f9f9;
-      padding: 2rem;
-      max-width: 600px;
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 500px;
       margin: auto;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    label {
-      font-weight: bold;
-      margin-top: 1rem;
-      display: block;
-      color: #222;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     select, textarea, button {
       width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.5rem;
+      margin-top: 10px;
+      padding: 10px;
       font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
     }
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
+    label {
       font-weight: bold;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    .hidden {
-      display: none;
+      display: block;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Review MasterOptimizer</h1>
+  <div class="container">
+    <h2>⭐ Rate MasterOptimizer Plugin</h2>
 
-  <form id="reviewForm" target="_blank">
-    <label for="rating">Your Rating (1–5)</label>
-    <select id="rating" name="rating" required>
-      <option value="">Select a rating</option>
-      <option value="1">1 – Awful</option>
-      <option value="2">2 – Bad</option>
-      <option value="3">3 – Okay</option>
-      <option value="4">4 – Good</option>
-      <option value="5">5 – Excellent</option>
+    <label for="rating">Rating (1 to 5)</label>
+    <select id="rating" required>
+      <option value="" disabled selected>Select rating</option>
+      <option value="1">1 - Poor</option>
+      <option value="2">2 - Needs improvement</option>
+      <option value="3">3 - Average</option>
+      <option value="4">4 - Good</option>
+      <option value="5">5 - Excellent</option>
     </select>
 
-    <div id="feedbackContainer" class="hidden">
-      <label id="feedbackLabel" for="feedback"></label>
-      <textarea id="feedback" name="feedback" placeholder="" required></textarea>
-    </div>
+    <label for="description" id="descLabel">Why?</label>
+    <textarea id="description" rows="6" placeholder="Tell us your thoughts..."></textarea>
 
-    <button type="submit">Submit Review on GitHub</button>
-  </form>
+    <button onclick="submitReview()">Submit Review</button>
+  </div>
 
   <script>
-    const ratingEl = document.getElementById("rating");
-    const feedbackContainer = document.getElementById("feedbackContainer");
-    const feedbackLabel = document.getElementById("feedbackLabel");
-    const feedback = document.getElementById("feedback");
-    const form = document.getElementById("reviewForm");
+    const ratingInput = document.getElementById("rating");
+    const label = document.getElementById("descLabel");
 
-    ratingEl.addEventListener("change", () => {
-      const rating = parseInt(ratingEl.value);
-      if (rating >= 4) {
-        feedbackContainer.classList.remove("hidden");
-        feedbackLabel.textContent = "What did you like?";
-        feedback.placeholder = "Tell us what you loved about the plugin!";
-      } else if (rating < 3 && rating > 0) {
-        feedbackContainer.classList.remove("hidden");
-        feedbackLabel.textContent = "What’s the problem?";
-        feedback.placeholder = "Describe the issue or what can be improved.";
+    ratingInput.addEventListener("change", function () {
+      if (parseInt(this.value) < 4) {
+        label.innerText = "What’s the problem?";
       } else {
-        feedbackContainer.classList.add("hidden");
+        label.innerText = "What did you like?";
       }
     });
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const rating = ratingEl.value;
-      const message = feedback.value.trim();
-      const issueTitle = encodeURIComponent(`Review – ${rating}/5`);
-      const issueBody = encodeURIComponent(`${message}\n\nRating: ${rating}/5`);
-      const githubURL = `https://github.com/Anant80/MasterOptimizer/issues/new?title=${title}&body=${body}`;
-      window.open(githubURL, "_blank");
-    });
+    function submitReview() {
+      const rating = document.getElementById("rating").value;
+      const desc = document.getElementById("description").value.trim();
+
+      if (!rating || !desc) {
+        alert("Please select a rating and write a description.");
+        return;
+      }
+
+      const title = encodeURIComponent(`⭐ Plugin Review: ${rating}/5`);
+      const body = encodeURIComponent(desc);
+
+      // Redirect to new issue page on GitHub with prefilled content
+      window.location.href = `https://github.com/anant80/MasterOptimizer/issues/new?title=${title}&body=${body}`;
+    }
   </script>
 </body>
 </html>
