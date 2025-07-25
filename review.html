@@ -2,91 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>⭐ MasterOptimizer Plugin Review</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MasterOptimizer Review</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 2rem;
-      background-color: #f4f4f4;
-      color: #333;
+      background: #f5f5f5;
+      padding: 40px;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 1.5rem;
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 1rem;
+    h2 {
+      margin-bottom: 10px;
     }
-    textarea, select, button {
+    select, textarea, button {
       width: 100%;
-      padding: 0.7rem;
-      font-size: 1rem;
-      margin-top: 0.5rem;
+      padding: 10px;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    textarea {
+      resize: vertical;
+      height: 120px;
     }
     button {
       background-color: #28a745;
       color: white;
       border: none;
+      border-radius: 6px;
       cursor: pointer;
-      margin-top: 1.5rem;
     }
     button:hover {
       background-color: #218838;
     }
+    label {
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2>⭐ Rate MasterOptimizer</h2>
+    <label for="rating">Rating (1–5)</label>
+    <select id="rating">
+      <option value="5">5 - Excellent</option>
+      <option value="4">4 - Great</option>
+      <option value="3">3 - Okay</option>
+      <option value="2">2 - Needs Improvement</option>
+      <option value="1">1 - Poor</option>
+    </select>
 
-  <h1>⭐ Review MasterOptimizer</h1>
+    <label for="description" id="descLabel">What did you like?</label>
+    <textarea id="description" placeholder="Share your thoughts..."></textarea>
 
-  <label for="rating">Rating (1 to 5):</label>
-  <select id="rating">
-    <option value="">Select a rating</option>
-    <option value="5">5 - Excellent</option>
-    <option value="4">4 - Great</option>
-    <option value="3">3 - Okay</option>
-    <option value="2">2 - Needs Work</option>
-    <option value="1">1 - Bad</option>
-  </select>
-
-  <label for="description" id="descriptionLabel">What did you like or what’s the problem?</label>
-  <textarea id="description" rows="6" placeholder="Write your review..."></textarea>
-
-  <button onclick="submitReview()">Submit Review on GitHub</button>
+    <button onclick="submitReview()">Submit Review</button>
+  </div>
 
   <script>
-    const ratingSelect = document.getElementById('rating');
-    const descriptionLabel = document.getElementById('descriptionLabel');
+    const rating = document.getElementById("rating");
+    const description = document.getElementById("description");
+    const label = document.getElementById("descLabel");
 
-    ratingSelect.addEventListener('change', () => {
-      const rating = parseInt(ratingSelect.value);
-      if (rating >= 4) {
-        descriptionLabel.textContent = "What did you like?";
+    rating.addEventListener("change", () => {
+      if (parseInt(rating.value) >= 4) {
+        label.innerText = "What did you like?";
       } else {
-        descriptionLabel.textContent = "What’s the problem?";
+        label.innerText = "What was the problem?";
       }
     });
 
     function submitReview() {
-      const rating = document.getElementById("rating").value;
-      const desc = document.getElementById("description").value.trim();
-      if (!rating || !desc) {
-        alert("Please provide both a rating and a description.");
+      const selectedRating = rating.value;
+      const reviewText = description.value.trim();
+
+      if (!reviewText) {
+        alert("Please enter your review.");
         return;
       }
 
-      const title = `Review: ${rating}/5`;
-      const body = `Rating: ${rating}/5\n\n${desc}`;
-      const baseURL = "https://github.com/anant80/MasterOptimizer/issues/new";
+      const title = encodeURIComponent(`⭐ Plugin Review: ${selectedRating}/5`);
+      const body = encodeURIComponent(`Rating: ${selectedRating}/5\n\n${reviewText}`);
+      const labels = encodeURIComponent("reviews");
 
-      const fullURL = `${baseURL}?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}&labels=reviews`;
+      const githubURL = `https://github.com/anant80/MasterOptimizer/issues/new?labels=${labels}&title=${title}&body=${body}`;
 
-      window.open(fullURL, '_blank');
+      window.open(githubURL, "_blank");
     }
   </script>
-
 </body>
 </html>
