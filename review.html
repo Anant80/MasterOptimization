@@ -100,7 +100,7 @@
       const message = feedback.value.trim();
       const issueTitle = encodeURIComponent(`Review – ${rating}/5`);
       const issueBody = encodeURIComponent(`${message}\n\nRating: ${rating}/5`);
-      const githubURL = `https://github.com/Anant80/MasterOptimizer/issues/new?labels=reviews&title=${issueTitle}&body=${issueBody}`;
+      const githubURL = `https://github.com/Anant80/MasterOptimizer/issues/new?title=${title}&body=${body}`;
       window.open(githubURL, "_blank");
     });
   </script>
